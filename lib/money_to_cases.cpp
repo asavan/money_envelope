@@ -68,6 +68,11 @@ void put(int money, int number, int rest, std::vector<int>& base, void (*out)(co
 	to = std::min(to, rest);
 	for(int i = money; i <= to; ++i)
 	{
+		// остаток точно не должен быть больше чем 1000 - 2^number
+		if (rest - i - 1 > (1000-(1<<(number))))
+		{
+			return;
+		}
 		if (!check(i, number, base))
 		{
 			return;
