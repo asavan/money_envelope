@@ -1,7 +1,6 @@
 #include "../lib/money_to_cases.h"
 #include "../utils/timer.h"
 #include "../utils/print.h"
-#include <math.h>
 
 void check_print(int money, int number, const std::vector<int>& b)
 {

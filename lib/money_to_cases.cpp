@@ -1,5 +1,4 @@
 ﻿#include "money_to_cases.h"
-#include <math.h>
 int summ(int number, const std::vector<int>& b)
 {
 	int s = 0;

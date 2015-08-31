@@ -1,9 +1,6 @@
 #include "../lib/money_to_cases.h"
 #include "../utils/timer.h"
 #include "../utils/print.h"
-#include <fstream>
-#include <iostream>
-#include <math.h>
 
 int main(int argc, char *argv[])
 {

@@ -1,5 +1,6 @@
 #include "print.h"
 #include <iostream>
+#include <fstream>
 int glob_count = 0;
 std::ofstream ofs;
 void print_out(const std::vector<int>& b)
@@ -15,7 +16,7 @@ void print_out(const std::vector<int>& b)
 		os = &ofs;
 	}
 	++glob_count;
-	for(int i = 0; i < b.size(); ++i)
+	for(size_t i = 0; i < b.size(); ++i)
 	{
 		*os << b[i] << " ";
 	}
