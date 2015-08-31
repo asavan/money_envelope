@@ -17,10 +17,10 @@ int main(int argc, char *argv[])
 	}
 	glob_count = 0;
 	std::vector<int> base(10); // size of cases
-	base[0] = 1;
-	int case_num = 1;
+	base[0] = 0;
+	int case_num = 0;
 	Timer t;
-	put(1, case_num, 1000-summ(case_num, base), base, print_out);
+	put(summ(case_num, base), case_num, 1000-summ(case_num, base), base, print_out);
 	int time = t.stop();
 	ofs << "Total count " << glob_count << std::endl;
 	print_time(ofs, time);
