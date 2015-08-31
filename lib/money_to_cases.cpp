@@ -13,7 +13,7 @@ int summ(int number, const std::vector<int>& b)
 // проверяем что можем набрать конкретную сумму
 bool check_cur_sum(int money, int number, const std::vector<int>& b)
 {
-	for (int j = 1; j < powl(2, number); ++j)
+	for (int j = 1; j < (1<<number); ++j)
 	{
 		int res = 0;
 		for(int k = 0; k < number; ++k)
@@ -36,6 +36,11 @@ bool check(int money, int number, const std::vector<int>& b)
 	// на предыдущем шаге мы могли набрать любую сумму до b[number-1]
 	// значит можем набрать любую сумму до b[number-1] + (b[number-1] - 1)
 	// for(int i = std::max(b[number-1] * 2, 0); i < money; ++i)
+	// if (summ(number-1, b) < money-10) return false;
+	if (number == 0)
+	{
+		return money <= 1;
+	}
 	for(int i = b[number-1]*2; i < money; ++i)
 	{
 		if (!check_cur_sum(i, number, b)) return false;
@@ -60,8 +65,8 @@ void put(int money, int number, int rest, std::vector<int>& base, void (*out)(co
 		return;
 	}
 	// весь остаток положить нельзя, так как конверт не последний
-	to = std::min(to+1, rest);
-	for(int i = money; i < to; ++i)
+	to = std::min(to, rest);
+	for(int i = money; i <= to; ++i)
 	{
 		if (!check(i, number, base))
 		{

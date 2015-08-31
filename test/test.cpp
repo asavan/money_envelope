@@ -22,7 +22,7 @@ void main_funk1000_10(int case_num, const char* name)
 	ofs.open(name);
 	glob_count = 0;
 	std::vector<int> base(10); // size of cases
-	base[0] = 0;
+	base[0] = 1;
 	base[1] = 2;
 	base[2] = 4;
 	base[3] = 8;
@@ -30,7 +30,7 @@ void main_funk1000_10(int case_num, const char* name)
 	base[5] = 31;
 	base[6] = 62;
 	Timer t;
-	put(summ(case_num, base), case_num, 10-summ(case_num, base), base, print_out);
+	put(summ(case_num, base), case_num, 1000-summ(case_num, base), base, print_out);
 	int time = t.stop();
 	ofs << "Total count " << glob_count << std::endl;
 	print_time(ofs, time);
@@ -39,11 +39,11 @@ void main_funk1000_10(int case_num, const char* name)
 
 int test_1()
 {
-	main_funk1000_10(1, "test11.txt");
+	// main_funk1000_10(0, "test11.txt");
 	// main_funk1000_10(2, "test12.txt");
 	// main_funk1000_10(3, "test13.txt");
 	// main_funk1000_10(4, "test14.txt");
-	// main_funk1000_10(5, "test15.txt");
+	main_funk1000_10(5, "test15.txt");
 	// main_funk1000_10(6, "test16.txt");
 	// main_funk1000_10(7, "test17.txt");
 	return 0;
@@ -54,7 +54,7 @@ int test_2()
 	std::vector<int> b;
 	for(int i = 0; i < 9; ++i)
 	{
-		int insert = powl(2, i);
+		int insert = 1 << i;
 		b.push_back(insert);
 		check_print(insert, i, b);
 	}
