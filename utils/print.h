@@ -4,9 +4,10 @@
 
 class Printer {
 public:
-    Printer(std::ostream& _os) : os(_os), glob_count(0) {};
+    Printer(std::ostream& _os);
     void print_out(const std::vector<int>& b);
-    int getGlobCount() const { return glob_count; }
+    void print_total() const;
+    void out_time(int time) const;
 private:
     std::ostream& os;
     int glob_count;
