@@ -1,6 +1,7 @@
 #include "../lib/money_to_cases.h"
 #include "../utils/timer.h"
 #include "../utils/print.h"
+#include <fstream>
 
 void check_print(int money, int number, const std::vector<int>& b)
 {
@@ -18,8 +19,8 @@ void check_print(int money, int number, const std::vector<int>& b)
 
 void main_funk1000_10(int case_num, const char* name)
 {
-	ofs.open(name);
-	glob_count = 0;
+	std::ofstream ofs(name);
+	Printer p(ofs);
 	std::vector<int> base(10); // size of cases
 	base[0] = 1;
 	base[1] = 2;
@@ -29,11 +30,10 @@ void main_funk1000_10(int case_num, const char* name)
 	base[5] = 31;
 	base[6] = 62;
 	Timer t;
-	put(summ(case_num, base), case_num, 1000-summ(case_num, base), base, print_out);
+	put(summ(case_num, base), case_num, 1000 - summ(case_num, base), base, [&p](const std::vector<int>& b) -> void { p.print_out(b); });
 	int time = t.stop();
-	ofs << "Total count " << glob_count << std::endl;
+	ofs << "Total count " << p.getGlobCount() << std::endl;
 	print_time(ofs, time);
-	ofs.close();
 }
 
 int test_1()

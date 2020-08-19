@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include "../utils/print.h"
 
 int f_recursive(int t)
 {

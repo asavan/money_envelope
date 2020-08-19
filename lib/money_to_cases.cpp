@@ -47,7 +47,7 @@ bool check(int money, int number, const std::vector<int>& b)
 	return true;
 }
 
-void put(int money, int number, int rest, std::vector<int>& base, void (*out)(const std::vector<int>& b))
+void put(int money, int number, int rest, std::vector<int>& base, std::function<void(const std::vector<int>&)> out)
 {
 	int to = summ(number, base) + 1;
 	// последний конверт - особый случай
