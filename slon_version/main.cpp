@@ -30,7 +30,6 @@ int f_loop(int t)
     {
         return 0;
     }
-    int res = 0;
     std::vector<int> answer(t + 1);
     answer[0] = 1;
     for (int i = 0; i < t / 2; ++i)

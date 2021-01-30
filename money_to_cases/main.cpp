@@ -1,10 +1,9 @@
 #include "../lib/money_to_cases.h"
 #include "../utils/print.h"
-#include <fstream>
 #include <iostream>
 #include <chrono>
 
-int main(int argc, char* argv[])
+int main(int, char**)
 {
     Printer p(std::cout);
     std::vector<int> base(10); // size of cases
@@ -13,6 +12,6 @@ int main(int argc, char* argv[])
     auto finish = std::chrono::high_resolution_clock::now();
     auto duration = duration_cast<std::chrono::seconds>(finish - start);
     p.print_total();
-    p.out_time(duration.count());
+    p.out_time(static_cast<int>(duration.count()));
     return 0;
 }

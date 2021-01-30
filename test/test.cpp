@@ -39,7 +39,7 @@ void main_funk1000_10(int case_num, const char* name)
     auto finish = std::chrono::high_resolution_clock::now();
     auto duration = duration_cast<std::chrono::seconds>(finish - start);
     p.print_total();
-    p.out_time(duration.count());
+    p.out_time(static_cast<int>(duration.count()));
 }
 
 int test_1()
