@@ -1,4 +1,5 @@
 ﻿#include "money_to_cases.h"
+
 int summ(int number, const std::vector<int>& b)
 {
     int s = 0;
@@ -40,7 +41,8 @@ bool check(int money, int number, const std::vector<int>& b)
     {
         return money <= 1;
     }
-    for (int i = b[number - 1] * 2; i < money; ++i)
+    int prev_index = number - 1;
+    for (int i = b[prev_index] * 2; i < money; ++i)
     {
         if (!check_cur_sum(i, number, b)) return false;
     }
@@ -49,13 +51,21 @@ bool check(int money, int number, const std::vector<int>& b)
 
 void put(int money, int number, int rest, std::vector<int>& base, std::function<void(const std::vector<int>&)> out)
 {
-    int to = summ(number, base) + 1;
+    int size = (int)base.size();
+    int prev_index = number - 1;
+    int s = summ(number, base) + 1;
     // последний конверт - особый случай
-    if (number == base.size() - 1)
+    if (number == size - 1)
     {
-        if (rest > to) return;
+        if (rest > s) {
+            // std::cout << "Never 1" << std::endl;
+            return;
+        }
         // нарушен порядок. мы раскладываем монеты упорядоченно. этот случай уже посчитан.
-        if (rest < base[number - 1]) return;
+        if (rest < base[prev_index]) {
+            // std::cout << "Never 2" << std::endl;
+            return;
+        }
         if (check(rest, number, base))
         {
             base[number] = rest;
@@ -63,8 +73,9 @@ void put(int money, int number, int rest, std::vector<int>& base, std::function<
         }
         return;
     }
-    // весь остаток положить нельзя, так как конверт не последний
-    to = std::min(to, rest);
+    // весь остаток положить нельзя, так как конверт не последний. Кладем не больше половины
+    int to = std::min(s, rest / (size - number));
+    // int to = std::min(s, rest/2);
     for (int i = money; i <= to; ++i)
     {
         // остаток точно не должен быть больше чем 1000 - 2^number
@@ -72,6 +83,11 @@ void put(int money, int number, int rest, std::vector<int>& base, std::function<
         {
             return;
         }
+        // если предпоследний конверт вместе с суммой предыдущих меньше того что останется - проверять нет смысла
+        if (number == size - 2 && (s + i) < rest - i + 1) {
+            continue;
+        }
+        // оставшиеся конверты точно не меньше того который кладем. если остатка заведомо не хватит, нет смысла продолжать 
         if (!check(i, number, base))
         {
             return;

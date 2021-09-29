@@ -8,10 +8,10 @@ int main(int, char**)
     Printer p(std::cout);
     std::vector<int> base(10); // size of cases
     auto start = std::chrono::high_resolution_clock::now();
-    put(0, 0, 1000, base, [&p](const std::vector<int>& b) -> void { p.print_out(b); });
+    put(0, 0, 1000, base, [&p](const auto& b) { p.print_out(b); });
     auto finish = std::chrono::high_resolution_clock::now();
-    auto duration = duration_cast<std::chrono::seconds>(finish - start);
+    auto duration = duration_cast<std::chrono::milliseconds>(finish - start);
     p.print_total();
-    p.out_time(static_cast<int>(duration.count()));
+    std::cout << duration.count() << "ms" << std::endl;
     return 0;
 }

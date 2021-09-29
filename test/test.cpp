@@ -37,9 +37,9 @@ void main_funk1000_10(int case_num, const char* name)
     auto start = std::chrono::high_resolution_clock::now();
     put(summ(case_num, base), case_num, 1000 - summ(case_num, base), base, [&p](const std::vector<int>& b) -> void { p.print_out(b); });
     auto finish = std::chrono::high_resolution_clock::now();
-    auto duration = duration_cast<std::chrono::seconds>(finish - start);
+    auto duration = duration_cast<std::chrono::milliseconds>(finish - start);
     p.print_total();
-    p.out_time(static_cast<int>(duration.count()));
+    std::cout << duration.count() << "ms" << std::endl;
 }
 
 int test_1()
