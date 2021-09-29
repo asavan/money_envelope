@@ -1,4 +1,5 @@
 ﻿#include "money_to_cases.h"
+// #include <iostream>
 
 int summ(int number, const std::vector<int>& b)
 {
@@ -10,22 +11,22 @@ int summ(int number, const std::vector<int>& b)
     return s;
 }
 
+// берем или не берем конверты начиная с самых крупных
+bool take(int curr_summ, int curr_index, int money, const std::vector<int>& b) 
+{
+    if (money == curr_summ) {
+        return true;
+    }
+    if (money < curr_summ || curr_index == -1) {
+        return false;
+    }
+    return take(curr_summ + b[curr_index], curr_index - 1, money, b) || take(curr_summ, curr_index - 1, money, b);
+}
+
 // проверяем что можем набрать конкретную сумму
 bool check_cur_sum(int money, int number, const std::vector<int>& b)
 {
-    for (int j = 1; j < (1 << number); ++j)
-    {
-        int res = 0;
-        for (int k = 0; k < number; ++k)
-        {
-            res += ((j >> k) & 1) * b[k];
-        }
-        if (res == money)
-        {
-            return true;
-        }
-    }
-    return false;
+    return take(0, number - 1, money, b);
 }
 
 // проверяем что можем набрать все суммы меньше той что кладем в этот конверт
@@ -73,21 +74,20 @@ void put(int money, int number, int rest, std::vector<int>& base, std::function<
         }
         return;
     }
-    // весь остаток положить нельзя, так как конверт не последний. Кладем не больше половины
+    // весь остаток положить нельзя, так как конверт не последний. Кладем не больше остатка поделенного на количество пустых конвертов
     int to = std::min(s, rest / (size - number));
-    // int to = std::min(s, rest/2);
     for (int i = money; i <= to; ++i)
     {
         // остаток точно не должен быть больше чем 1000 - 2^number
         if (rest - i - 1 > (1000 - (1 << (number))))
         {
-            return;
+            // std::cout << "Never 5" << std::endl;
+            continue;
         }
         // если предпоследний конверт вместе с суммой предыдущих меньше того что останется - проверять нет смысла
         if (number == size - 2 && (s + i) < rest - i + 1) {
             continue;
         }
-        // оставшиеся конверты точно не меньше того который кладем. если остатка заведомо не хватит, нет смысла продолжать 
         if (!check(i, number, base))
         {
             return;
