@@ -53,25 +53,12 @@ bool check(int money, int number, const std::vector<int>& b)
 void put(int money, int number, int rest, std::vector<int>& base, std::function<void(const std::vector<int>&)> out)
 {
     int size = (int)base.size();
-    int prev_index = number - 1;
     int s = summ(number, base) + 1;
-    // последний конверт - особый случай
+    // последний конверт - особый случай, все проверки уже сделаны на предыдущих шагах
     if (number == size - 1)
     {
-        if (rest > s) {
-            // std::cout << "Never 1" << std::endl;
-            return;
-        }
-        // нарушен порядок. мы раскладываем монеты упорядоченно. этот случай уже посчитан.
-        if (rest < base[prev_index]) {
-            // std::cout << "Never 2" << std::endl;
-            return;
-        }
-        if (check(rest, number, base))
-        {
-            base[number] = rest;
-            out(base);
-        }
+        base[number] = rest;
+        out(base);
         return;
     }
     // весь остаток положить нельзя, так как конверт не последний. Кладем не больше остатка поделенного на количество пустых конвертов

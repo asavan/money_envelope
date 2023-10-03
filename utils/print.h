@@ -9,5 +9,5 @@ public:
     void print_total() const;
 private:
     std::ostream& os;
-    int glob_count;
+    std::vector<std::vector<int>> memo;
 };
